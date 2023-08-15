@@ -11,7 +11,13 @@ const { errorFilter } = require("./src/middlewares");
 const SECRET_SESSION_KEY = process.env.SECRET_SESSION_KEY;
 const app = express();
 app.use(logger("dev"));
-app.use(cors());
+// app.use(cors());
+const corsOptions = {
+  origin: "http://localhost:2000",
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(
   session({
