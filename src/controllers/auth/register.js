@@ -16,8 +16,6 @@ const register = async (req, res) => {
     password: hashPassword,
   });
 
-  //   const { password, ...userWithoutPassword } = newUser;
-
   res.status(201).json(newUser);
 };
 
