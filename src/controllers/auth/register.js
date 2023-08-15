@@ -3,7 +3,7 @@ const { User } = require("../../models/users.model");
 const { createError } = require("../../helpers");
 
 const register = async (req, res) => {
-  const { name, email, password } = req.body;
+  const { email, password } = req.body;
   const user = await User.findOne({ email });
   if (user) {
     const error = createError(409, "email in use");
@@ -11,7 +11,6 @@ const register = async (req, res) => {
   }
   const hashPassword = await bcrypt.hash(password, bcrypt.genSaltSync(10));
   const newUser = await User.create({
-    name,
     email,
     password: hashPassword,
   });
