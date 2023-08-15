@@ -30,6 +30,7 @@ passport.use(
 
           return done(null, existingUser);
         } else {
+          console.log(`profile`, profile);
           const newUser = await User.create({
             name: profile.displayName,
             email: profile.email,
@@ -57,19 +58,3 @@ passport.serializeUser(function (user, done) {
 passport.deserializeUser(function (user, done) {
   done(null, user);
 });
-// passport.use(
-//   new GoogleStrategy(
-//     {
-//       clientID: GOOGLE_CLIENT_ID,
-//       clientSecret: GOOGLE_CLIENT_SECRET,
-//       callbackURL: "http://localhost:3000/auth/google/callback",
-//       passReqToCallback: true,
-//     },
-//     function (request, accessToken, refreshToken, profile, done) {
-//       console.log(`afasfasfasfasfasfas`);
-//       User.findOrCreate({ googleId: profile.id }, function (err, user) {
-//         return done(err, user);
-//       });
-//     }
-//   )
-// );
