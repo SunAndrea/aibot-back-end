@@ -8,14 +8,15 @@ require("dotenv").config();
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
 const { JWT_SECRET } = process.env;
-// const { BASE_URL } = process.env;
+const { BASE_URL } = process.env;
 passport.use(
   new GoogleStrategy(
     {
       clientID: GOOGLE_CLIENT_ID,
       clientSecret: GOOGLE_CLIENT_SECRET,
-      callbackURL: `/auth/google/callback`,
+      callbackURL: `${BASE_URL}/auth/google/callback`,
       passReqToCallback: true,
+      scope: ["email", "profile"],
     },
     async function (request, accessToken, refreshToken, profile, done) {
       console.log(`profile`, request);
