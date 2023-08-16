@@ -18,6 +18,8 @@ passport.use(
       passReqToCallback: true,
     },
     async function (request, accessToken, refreshToken, profile, done) {
+      console.log(`profile`, request);
+
       try {
         const existingUser = await User.findOne({ email: profile.email });
         if (existingUser) {

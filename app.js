@@ -11,14 +11,14 @@ const { errorFilter } = require("./src/middlewares");
 const SECRET_SESSION_KEY = process.env.SECRET_SESSION_KEY;
 const app = express();
 app.use(logger("dev"));
-// app.use(cors());
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    headers: "Content-Type, Authorization",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-  })
-);
+app.use(cors());
+// app.use(
+//   cors({
+//     origin: "*",
+//     headers: "Content-Type, Authorization",
+//     methods: ["GET", "POST", "PUT", "DELETE"],
+//   })
+// );
 app.use(express.json());
 app.use(
   session({
@@ -45,7 +45,7 @@ app.get(
   "/auth/google/callback",
   passport.authenticate("google", {
     successRedirect: "/protected",
-    failureRedirect: "/auth/google/failure",
+    failureRedirect: "/failure",
   })
 );
 
@@ -54,7 +54,7 @@ app.get("/protected", isLoggedIn, (req, res) => {
   res.send(`Hello ${req.user.name}`);
 });
 
-app.get("/auth/google/failure", (req, res) => {
+app.get("/failure", (req, res) => {
   res.send("Failed to authenticate..");
 });
 
