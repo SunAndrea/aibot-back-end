@@ -36,14 +36,10 @@ const register = async (req, res) => {
     await sgMail.send(message);
     res.status(201).json(newUser);
   } catch (error) {
-    // Обробка помилки при відправці листа
     console.error("SendGrid error:", error);
-    // Можна також повернути помилку на клієнтську сторону
     const sendError = createError(500, "Could not send verification email");
     throw sendError;
   }
-
-  // res.status(201).json(newUser);
 };
 
 module.exports = register;
