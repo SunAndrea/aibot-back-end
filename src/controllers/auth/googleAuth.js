@@ -8,7 +8,7 @@ require("dotenv").config();
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
 const { JWT_SECRET } = process.env;
-const { BASE_URL } = process.env;
+const BASE_URL = process.env.BASE_URL;
 passport.use(
   new GoogleStrategy(
     {

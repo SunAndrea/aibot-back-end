@@ -13,4 +13,7 @@ router.post(
 router.post("/login", controllerWrapper(auth.login));
 
 router.get("/logout", authorizeMiddleware, controllerWrapper(auth.logout));
+
+router.get("/verify/:verificationCode", controllerWrapper(auth.verifyEmail));
+
 module.exports = router;

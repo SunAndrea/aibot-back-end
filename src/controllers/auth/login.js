@@ -18,6 +18,11 @@ const login = async (req, res) => {
     throw error;
   }
 
+  if (!user.verify) {
+    const error = createError(403, "Email not verified");
+    throw error;
+  }
+
   const payload = {
     id: user._id,
   };
