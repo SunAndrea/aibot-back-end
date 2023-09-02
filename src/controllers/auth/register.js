@@ -5,8 +5,8 @@ const sgMail = require("@sendgrid/mail");
 const { createError } = require("../../helpers");
 const { User } = require("../../models/users.model");
 
-const BASE_URL = process.env.BASE_URL;
-const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
+const { BASE_URL, SENDGRID_API_KEY, SANDGRID_EMAIL } = process.env;
+
 sgMail.setApiKey(SENDGRID_API_KEY);
 
 const register = async (req, res) => {
@@ -25,16 +25,18 @@ const register = async (req, res) => {
     verificationCode,
   });
 
+  const { password: userPassword, ...userResponse } = newUser._doc;
+
   const message = {
     to: email,
-    from: "aibottest123@meta.ua",
+    from: SANDGRID_EMAIL,
     subject: "Підтвердження реєстрації",
     text: `Для посилання підтвердження реєстрації перейдіть за посиланням ${BASE_URL}/api/auth/verify/${verificationCode}`,
   };
 
   try {
     await sgMail.send(message);
-    res.status(201).json(newUser);
+    res.status(201).json(userResponse);
   } catch (error) {
     console.error("SendGrid error:", error);
     const sendError = createError(500, "Could not send verification email");

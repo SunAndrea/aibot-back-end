@@ -1,9 +1,9 @@
+const path = require("path");
 const { createError } = require("../../helpers");
 const { User } = require("../../models/users.model");
 
-const verifyEmail = async (req, res, next) => {
+const verifyEmail = async (req, res) => {
   const { verificationCode } = req.params;
-  console.log(`verificationCode`, verificationCode);
   const user = await User.findOne({ verificationCode });
   if (!user) {
     throw createError(404, "User not found");
@@ -12,7 +12,7 @@ const verifyEmail = async (req, res, next) => {
     verify: true,
     verificationCode: "",
   });
-  res.status(200).json({ message: "Verification successful" });
+  res.sendFile(path.join(__dirname, "../../public/registration-success.html"));
 };
 
 module.exports = verifyEmail;
