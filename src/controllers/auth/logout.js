@@ -9,7 +9,7 @@ const logout = async (req, res, next) => {
 
   await User.findByIdAndUpdate(
     req.user.id,
-    { token: null },
+    { token: null, refreshToken: null },
     { new: true }
   ).select("-password");
   res.status(204).send();

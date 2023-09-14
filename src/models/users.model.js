@@ -25,7 +25,6 @@ const userSchema = new Schema(
       default: "Free",
     },
 
-    token: String,
     verify: {
       type: Boolean,
       default: false,
@@ -38,20 +37,51 @@ const userSchema = new Schema(
       type: String,
       default: "",
     },
+    token: String,
+    refreshToken: String,
   },
   { versionKey: false, timestamps: true }
 );
 
 const registerSchema = Joi.object({
   email: Joi.string().email().required(),
-  password: Joi.string().min(6).required(),
+  password: Joi.string()
+    .required()
+    .pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/)
+    .message(
+      "The password must contain at least one lowercase letter, one uppercase letter, one number and be at least 8 characters long."
+    ),
   name: Joi.string().optional(),
 });
 const loginSchema = Joi.object({
   email: Joi.string().email().required(),
-  password: Joi.string().min(6).required(),
+  password: Joi.string()
+    .pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/)
+    .message(
+      "The password must contain at least one lowercase letter, one uppercase letter, one number and be at least 8 characters long."
+    )
+    .required(),
+});
+
+const forgotPasswordSchema = Joi.object({
+  email: Joi.string().email().required(),
+});
+
+const resetPasswordSchema = Joi.object({
+  password: Joi.string()
+    .pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/)
+    .message(
+      "The password must contain at least one lowercase letter, one uppercase letter, one number and be at least 8 characters long."
+    )
+    .required(),
 });
 
 const User = model("user", userSchema);
 
-module.exports = { User, registerSchema, loginSchema };
+module.exports = {
+  User,
+  registerSchema,
+  loginSchema,
+  forgotPasswordSchema,
+  resetPasswordSchema,
+};

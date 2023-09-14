@@ -1,6 +1,6 @@
 const { User } = require("../../models/users.model");
 
-const ressetPassword = async (req, res) => {
+const resetPassword = async (req, res) => {
   try {
     const { token } = req.params;
     const { password } = req.body;
@@ -17,9 +17,8 @@ const ressetPassword = async (req, res) => {
     const { password: userPassword, ...userResponse } = user._doc;
     res.status(200).json(userResponse);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error resetting password" });
+    res.status(error.status).json({ message: error.message });
   }
 };
 
-module.exports = ressetPassword;
+module.exports = resetPassword;

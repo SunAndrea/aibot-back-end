@@ -38,9 +38,7 @@ const register = async (req, res) => {
     await sgMail.send(message);
     res.status(201).json(userResponse);
   } catch (error) {
-    console.error("SendGrid error:", error);
-    const sendError = createError(500, "Could not send verification email");
-    throw sendError;
+    res.status(error.status).json({ message: error.message });
   }
 };
 

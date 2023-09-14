@@ -2,7 +2,7 @@ const { createError } = require("../helpers/index");
 const { verify } = require("../helpers/index");
 const { User } = require("../models/users.model");
 
-const { JWT_SECRET } = process.env.JWT_SECRET;
+const { JWT_SECRET } = process.env;
 const authorizeMiddleware = async (req, res, next) => {
   const { authorization = "" } = req.headers;
   const [bearer, token] = authorization.split(" ");
