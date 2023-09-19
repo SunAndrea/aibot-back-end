@@ -1,9 +1,12 @@
-const register = require("./register");
-const login = require("./login");
-const logout = require("./logout");
-const verifyEmail = require("./verifyEmail");
-const forgotPassword = require("./forgotPassword");
-const resetPassword = require("./resetPassword");
+const register = require('./register');
+const login = require('./login');
+const logout = require('./logout');
+const verifyEmail = require('./verifyEmail');
+const forgotPassword = require('./forgotPassword');
+const resetPassword = require('./resetPassword');
+const refreshToken = require('./refreshToken');
+const googleAuth = require('./googleAuth');
+
 module.exports = {
   register,
   login,
@@ -11,4 +14,6 @@ module.exports = {
   verifyEmail,
   forgotPassword,
   resetPassword,
+  refreshToken,
+  googleAuth,
 };
