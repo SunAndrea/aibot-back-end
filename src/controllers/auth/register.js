@@ -13,7 +13,7 @@ const register = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
   if (user) {
-    const error = createError(409, 'email in use');
+    const error = createError(409, 'This email address is already used');
     throw error;
   }
   const hashPassword = await bcrypt.hash(password, bcrypt.genSaltSync(10));
