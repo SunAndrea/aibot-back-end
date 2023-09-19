@@ -1,5 +1,5 @@
-const { Schema, model } = require("mongoose");
-const Joi = require("joi");
+const { Schema, model } = require('mongoose');
+const Joi = require('joi');
 
 const userSchema = new Schema(
   {
@@ -8,7 +8,7 @@ const userSchema = new Schema(
     },
     email: {
       type: String,
-      required: [true, "Email is required"],
+      required: [true, 'Email is required'],
     },
     password: {
       type: String,
@@ -17,12 +17,12 @@ const userSchema = new Schema(
 
     role: {
       type: String,
-      enum: ["Admin", "User"],
+      enum: ['Admin', 'User'],
     },
     status: {
       type: String,
-      enum: ["Free", "Paid"],
-      default: "Free",
+      enum: ['Free', 'Paid'],
+      default: 'Free',
     },
 
     verify: {
@@ -31,14 +31,20 @@ const userSchema = new Schema(
     },
     verificationCode: {
       type: String,
-      default: "",
+      default: '',
     },
     resetPasswordToken: {
       type: String,
-      default: "",
+      default: '',
     },
-    token: String,
-    refreshToken: String,
+    accessToken: {
+      type: String,
+      default: null,
+    },
+    refreshToken: {
+      type: String,
+      default: null,
+    },
   },
   { versionKey: false, timestamps: true }
 );
@@ -49,7 +55,7 @@ const registerSchema = Joi.object({
     .required()
     .pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/)
     .message(
-      "The password must contain at least one lowercase letter, one uppercase letter, one number and be at least 8 characters long."
+      'The password must contain at least one lowercase letter, one uppercase letter, one number and be at least 8 characters long.'
     ),
   name: Joi.string().optional(),
 });
@@ -58,7 +64,7 @@ const loginSchema = Joi.object({
   password: Joi.string()
     .pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/)
     .message(
-      "The password must contain at least one lowercase letter, one uppercase letter, one number and be at least 8 characters long."
+      'The password must contain at least one lowercase letter, one uppercase letter, one number and be at least 8 characters long.'
     )
     .required(),
 });
@@ -71,12 +77,16 @@ const resetPasswordSchema = Joi.object({
   password: Joi.string()
     .pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/)
     .message(
-      "The password must contain at least one lowercase letter, one uppercase letter, one number and be at least 8 characters long."
+      'The password must contain at least one lowercase letter, one uppercase letter, one number and be at least 8 characters long.'
     )
     .required(),
 });
 
-const User = model("user", userSchema);
+const refreshTokenSchema = Joi.object({
+  refreshToken: Joi.string().required(),
+});
+
+const User = model('user', userSchema);
 
 module.exports = {
   User,
@@ -84,4 +94,5 @@ module.exports = {
   loginSchema,
   forgotPasswordSchema,
   resetPasswordSchema,
+  refreshTokenSchema,
 };

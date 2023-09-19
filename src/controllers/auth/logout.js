@@ -1,17 +1,17 @@
-const { createError } = require("../../helpers");
-const { User } = require("../../models/users.model");
+const { createError } = require('../../helpers');
+const { User } = require('../../models/users.model');
 
 const logout = async (req, res, next) => {
   const existingUser = await User.findById(req.user.id);
   if (!existingUser) {
-    throw createError(404, "User not found");
+    throw createError(404, 'User not found');
   }
 
   await User.findByIdAndUpdate(
     req.user.id,
-    { token: null, refreshToken: null },
+    { accessToken: null, refreshToken: null },
     { new: true }
-  ).select("-password");
+  ).select('-password');
   res.status(204).send();
 };
 
