@@ -19,6 +19,7 @@ const googleAuth = async (req, res) => {
   await User.findByIdAndUpdate(id, {
     accessToken,
     refreshToken,
+    verify: true,
   });
   res.redirect(
     `http://localhost:5173?accessToken=${accessToken}&refreshToken=${refreshToken}`

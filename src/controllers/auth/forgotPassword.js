@@ -1,7 +1,7 @@
-const ObjectID = require("bson-objectid");
-const sgMail = require("@sendgrid/mail");
-const { createError } = require("../../helpers");
-const { User } = require("../../models/users.model");
+const ObjectID = require('bson-objectid');
+const sgMail = require('@sendgrid/mail');
+const { createError } = require('../../helpers');
+const { User } = require('../../models/users.model');
 const { BASE_URL, SENDGRID_API_KEY, SANDGRID_EMAIL } = process.env;
 sgMail.setApiKey(SENDGRID_API_KEY);
 
@@ -11,7 +11,9 @@ const forgotPassword = async (req, res) => {
     const user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(401).json({
+        message: 'Sorry, can’t find an account associated with this address',
+      });
     }
 
     const token = ObjectID();
@@ -22,7 +24,7 @@ const forgotPassword = async (req, res) => {
     const message = {
       to: email,
       from: SANDGRID_EMAIL,
-      subject: "Скидання пароля",
+      subject: 'Скидання пароля',
       text: `Для скидання пароля перейдіть за цим посиланням: https://nastyasavchenko.github.io/EVA-I/reset-password`,
       html: `<p>Для скидання пароля перейдіть за <a href="https://nastyasavchenko.github.io/EVA-I/reset-password">цим посиланням</a></p>`,
     };

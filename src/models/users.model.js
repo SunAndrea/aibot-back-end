@@ -50,34 +50,45 @@ const userSchema = new Schema(
 );
 
 const registerSchema = Joi.object({
-  email: Joi.string().email().required(),
+  email: Joi.string()
+    .email()
+    .message('Invalid format. Must contain @')
+    .required(),
   password: Joi.string()
     .required()
-    .pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/)
+    // .pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/) // this pattern dousn't include symbol
+    .pattern(/^(?=.*[A-Z])(?=.*[0-9])(?=.*[\W_])[A-Za-z0-9\W_]{8,}$/) // this pattern with symbol
+
     .message(
-      'The password must contain at least one lowercase letter, one uppercase letter, one number and be at least 8 characters long.'
+      'Password must contain at least 8 characters, including at least 1 uppercase letter, 1 number and 1 symbol'
     ),
   name: Joi.string().optional(),
 });
 const loginSchema = Joi.object({
-  email: Joi.string().email().required(),
+  email: Joi.string()
+    .email()
+    .message('Invalid format. Must contain @')
+    .required(),
   password: Joi.string()
-    .pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/)
+    .pattern(/^(?=.*[A-Z])(?=.*[0-9])(?=.*[\W_])[A-Za-z0-9\W_]{8,}$/)
     .message(
-      'The password must contain at least one lowercase letter, one uppercase letter, one number and be at least 8 characters long.'
+      'Password must contain at least 8 characters, including at least 1 uppercase letter, 1 number and 1 symbol'
     )
     .required(),
 });
 
 const forgotPasswordSchema = Joi.object({
-  email: Joi.string().email().required(),
+  email: Joi.string()
+    .email()
+    .message('Invalid format. Must contain @')
+    .required(),
 });
 
 const resetPasswordSchema = Joi.object({
   password: Joi.string()
-    .pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/)
+    .pattern(/^(?=.*[A-Z])(?=.*[0-9])(?=.*[\W_])[A-Za-z0-9\W_]{8,}$/)
     .message(
-      'The password must contain at least one lowercase letter, one uppercase letter, one number and be at least 8 characters long.'
+      'Password must contain at least 8 characters, including at least 1 uppercase letter, 1 number and 1 symbol'
     )
     .required(),
 });
