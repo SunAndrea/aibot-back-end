@@ -43,6 +43,8 @@ router.get(
   auth.googleAuth
 );
 
+router.get('/current', authorizeMiddleware, controllerWrapper(auth.getCurrent));
+
 router.get('/verify/:verificationCode', controllerWrapper(auth.verifyEmail));
 
 router.post(

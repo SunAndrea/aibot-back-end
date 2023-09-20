@@ -6,6 +6,7 @@ const forgotPassword = require('./forgotPassword');
 const resetPassword = require('./resetPassword');
 const refreshToken = require('./refreshToken');
 const googleAuth = require('./googleAuth');
+const getCurrent = require('./getCurrent');
 
 module.exports = {
   register,
@@ -16,4 +17,5 @@ module.exports = {
   resetPassword,
   refreshToken,
   googleAuth,
+  getCurrent,
 };
