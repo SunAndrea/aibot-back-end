@@ -25,7 +25,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/api/auth', authRouter);
-app.use('/api/waitList', waitListRouter);
+app.use('/api/waitlist', waitListRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: 'Not found' });

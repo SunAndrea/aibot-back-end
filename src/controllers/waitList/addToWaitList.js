@@ -10,14 +10,14 @@ const addToWaitList = async (req, res) => {
     throw error;
   }
 
-  const newUser = await WaitList.create({
+  await WaitList.create({
     name,
     email,
     phoneNumber,
     socialLink,
   });
 
-  res.redirect('https://nastyasavchenko.github.io/EVA-I/');
+  res.status(201).json();
 };
 
 module.exports = addToWaitList;

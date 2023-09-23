@@ -36,7 +36,7 @@ const addToWaitListSchema = Joi.object({
   socialLink: Joi.string().optional(),
 });
 
-const WaitList = model('waitList', waitListSchema);
+const WaitList = model('waitlist', waitListSchema);
 
 module.exports = {
   WaitList,
