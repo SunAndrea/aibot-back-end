@@ -4,11 +4,20 @@ const session = require('express-session');
 const logger = require('morgan');
 var cors = require('cors');
 const passport = require('passport');
+const pinoHTTP = require('pino-http');
+const cron = require('node-cron');
 const authRouter = require('./src/routes/auth');
 const waitListRouter = require('./src/routes/waitList');
 const { errorFilter } = require('./src/middlewares');
+const pinoLogger = require('./logger');
+const { getLogs } = require('./src/controllers/getlogs');
+
 const SECRET_SESSION_KEY = process.env.SECRET_SESSION_KEY;
+
 const app = express();
+
+app.use(pinoHTTP());
+
 app.use(logger('dev'));
 app.use(cors());
 
@@ -24,10 +33,25 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.get('/api/logs', getLogs);
 app.use('/api/auth', authRouter);
 app.use('/api/waitlist', waitListRouter);
 
+const sendDailyEmail = () => {
+  try {
+    getLogs().then((res) => {
+      console.log('Daily email sent!');
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+cron.schedule('0 10 * * *', sendDailyEmail); // Запускаем расписание для отправки письма каждый день в 10:00 утра
+// cron.schedule('*/10 * * * * *', sendDailyEmail); // Запускаем расписание для отправки письма каждые 10 сек
+
 app.use((req, res) => {
+  pinoLogger.error('Not found');
   res.status(404).json({ message: 'Not found' });
 });
 

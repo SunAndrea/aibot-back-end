@@ -11,7 +11,7 @@ const login = async (req, res) => {
   if (!user) {
     const error = createError(
       401,
-      'Sorry, can’t find an account associated with this address'
+      "Sorry, can't find an account associated with this address"
     );
     throw error;
   }
