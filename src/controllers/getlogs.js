@@ -68,11 +68,9 @@ const getLogs = async (req, res) => {
       if (err) throw err;
       console.log('app.log was cleaned');
     });
-    res.status(200).json('Email was sent successfully');
     return true;
   } catch (err) {
     console.log(err);
-    res.status(err.status).json({ message: err.message });
   }
 };
 
