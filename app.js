@@ -10,7 +10,7 @@ const authRouter = require('./src/routes/auth');
 const waitListRouter = require('./src/routes/waitList');
 const { errorFilter } = require('./src/middlewares');
 const pinoLogger = require('./logger');
-const { getLogs } = require('./src/controllers/getlogs');
+const { getLogs, sendDailyEmail } = require('./src/controllers/getlogs');
 
 const SECRET_SESSION_KEY = process.env.SECRET_SESSION_KEY;
 
@@ -37,18 +37,7 @@ app.get('/api/logs', getLogs);
 app.use('/api/auth', authRouter);
 app.use('/api/waitlist', waitListRouter);
 
-const sendDailyEmail = () => {
-  try {
-    getLogs().then((res) => {
-      console.log('Daily email sent!');
-    });
-  } catch (err) {
-    console.error(err);
-  }
-};
-
-cron.schedule('0 10 * * *', sendDailyEmail); // Запускаем расписание для отправки письма каждый день в 10:00 утра
-// cron.schedule('*/10 * * * * *', sendDailyEmail); // Запускаем расписание для отправки письма каждые 10 сек
+cron.schedule('00 10 * * *', sendDailyEmail);
 
 app.use((req, res) => {
   pinoLogger.error('Not found');

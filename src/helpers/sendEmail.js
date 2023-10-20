@@ -1,3 +1,5 @@
+const pinoLogger = require('../../logger');
+
 const sgMail = require('@sendgrid/mail');
 
 const { SENDGRID_API_KEY, SANDGRID_EMAIL } = process.env;
@@ -8,7 +10,7 @@ const sendEmail = async (data) => {
   const message = { ...data, from: SANDGRID_EMAIL };
 
   await sgMail.send(message);
-  console.log('email sended');
+  pinoLogger.info('email sended');
 };
 
 module.exports = sendEmail;
