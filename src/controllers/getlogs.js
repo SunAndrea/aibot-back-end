@@ -1,4 +1,5 @@
 const { sendSmtpEmail, errorsCounter } = require('../helpers');
+const pinoLogger = require('../../logger');
 
 const fs = require('fs');
 
@@ -64,14 +65,24 @@ const getLogs = async (req, res) => {
   try {
     await sendSmtpEmail(email);
 
-    fs.writeFile(pathToAttachment, '', (err) => {
-      if (err) throw err;
-      console.log('app.log was cleaned');
-    });
+    // fs.writeFile(pathToAttachment, '', (err) => {
+    //   if (err) throw err;
+    //   pinoLogger.info('app.log was cleaned');
+    // });
     return true;
   } catch (err) {
-    console.log(err);
+    pinoLogger.warn(err);
   }
 };
 
-module.exports = { getLogs };
+const sendDailyEmail = () => {
+  try {
+    getLogs().then((res) => {
+      pinoLogger.info('Daily email sent!');
+    });
+  } catch (err) {
+    pinoLogger.error(err);
+  }
+};
+
+module.exports = { getLogs, sendDailyEmail };

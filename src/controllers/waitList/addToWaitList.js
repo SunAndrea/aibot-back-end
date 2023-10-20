@@ -1,6 +1,7 @@
 const { createError } = require('../../helpers');
 const { WaitList } = require('../../models/waitList.model');
 const sendEmail = require('../../helpers/sendEmail');
+const pinoLogger = require('../../../logger');
 
 const { PROJECT_EMAIL } = process.env;
 
@@ -10,6 +11,10 @@ const addToWaitList = async (req, res) => {
   const user = await WaitList.findOne({ email });
   if (user) {
     const error = createError(409, 'This email address is already used');
+    pinoLogger.error(
+      { userId: user._id },
+      'This email address is already used in waitlist'
+    );
     throw error;
   }
 
@@ -32,8 +37,13 @@ const addToWaitList = async (req, res) => {
 
   try {
     await sendEmail(mail);
+    pinoLogger.info(
+      { userId: user._id },
+      'User was added to waitlist successfully'
+    );
     res.status(200).json('Email was sent successfully');
   } catch (error) {
+    // pinoLogger.error({ userId: user._id }, error.massege);
     res.status(error.status).json({ message: error.message });
   }
 };

@@ -24,7 +24,7 @@ const fileTransport = pino.transport({
 module.exports = pino(
   {
     level: 'info',
-    timestamp: () => `,"timestamp":"${new Date(Date.now()).toLocaleString()}"`,
+    timestamp: () => `,"timestamp":"${new Date().toLocaleString('uk-UA')}"`,
     redact: {
       paths: [
         'name',

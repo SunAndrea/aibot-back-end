@@ -2,6 +2,8 @@ const ObjectID = require('bson-objectid');
 const sgMail = require('@sendgrid/mail');
 const { createError } = require('../../helpers');
 const { User } = require('../../models/users.model');
+const pinoLogger = require('../../../logger');
+
 const { BASE_URL, SENDGRID_API_KEY, SANDGRID_EMAIL } = process.env;
 sgMail.setApiKey(SENDGRID_API_KEY);
 
@@ -11,6 +13,9 @@ const forgotPassword = async (req, res) => {
     const user = await User.findOne({ email });
 
     if (!user) {
+      pinoLogger.error(
+        'Sorry, can’t find an account associated with this address'
+      );
       return res.status(401).json({
         message: 'Sorry, can’t find an account associated with this address',
       });
@@ -31,8 +36,10 @@ const forgotPassword = async (req, res) => {
 
     await sgMail.send(message);
 
+    pinoLogger.info({ userId: user._id }, 'Password reset was successful');
     res.status(200).json(userResponse);
   } catch (error) {
+    pinoLogger.error(error.message);
     res.status(error.status).json({ message: error.message });
   }
 };

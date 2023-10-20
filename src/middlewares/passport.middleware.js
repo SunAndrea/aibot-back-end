@@ -2,6 +2,7 @@ const passport = require('passport');
 const { Strategy } = require('passport-google-oauth2');
 const bcrypt = require('bcryptjs');
 const { v4: uuidv4 } = require('uuid');
+const pinoLogger = require('../../logger');
 
 const { User } = require('../models/users.model');
 
@@ -26,6 +27,7 @@ const googleCallback = async (
     const { email, displayName } = profile;
     const user = await User.findOne({ email });
     if (user) {
+      pinoLogger.error(`${email} is already used`);
       return done(null, user);
     }
     const hashPassword = await bcrypt.hash(uuidv4(), 10);
@@ -35,8 +37,10 @@ const googleCallback = async (
       password: hashPassword,
     });
     done(null, newUser);
+    pinoLogger.info('User was logged in successfully with Google');
   } catch (error) {
     done(error);
+    pinoLogger.error(error);
   }
 };
 
