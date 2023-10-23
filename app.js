@@ -8,6 +8,7 @@ const pinoHTTP = require('pino-http');
 const cron = require('node-cron');
 const authRouter = require('./src/routes/auth');
 const waitListRouter = require('./src/routes/waitList');
+const databaseRouter = require('./src/routes/database');
 const { errorFilter } = require('./src/middlewares');
 const pinoLogger = require('./logger');
 const { getLogs, sendDailyEmail } = require('./src/controllers/getlogs');
@@ -36,6 +37,7 @@ app.use(passport.session());
 app.get('/api/logs', getLogs);
 app.use('/api/auth', authRouter);
 app.use('/api/waitlist', waitListRouter);
+app.use('/api/database', databaseRouter);
 
 cron.schedule('00 10 * * *', sendDailyEmail);
 
