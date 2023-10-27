@@ -5,13 +5,8 @@ const pinoLogger = require('../../../logger');
 const logout = async (req, res, next) => {
   const existingUser = await User.findById(req.user.id);
   if (!existingUser) {
-    pinoLogger.error(
-      'Sorry, can’t find an account associated with this address'
-    );
-    throw createError(
-      401,
-      'Sorry, can’t find an account associated with this address'
-    );
+    pinoLogger.error('Unauthorized (invalid access token)');
+    throw createError(401, 'Unauthorized (invalid access token)');
   }
 
   await User.findByIdAndUpdate(

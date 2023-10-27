@@ -7,18 +7,6 @@ const getDatabase = async (req, res) => {
   const database = await Database.findOne({ owner });
 
   res.status(200).json(database);
-
-  //   if (database) {
-  //     const error = createError(409, 'This user is already used');
-  //     throw error;
-  //   }
-
-  //   const createdDatabase = await Database.create({
-  //     owner,
-  //     tariffPlan,
-  //   });
-  //   res.status(201).json(createdDatabase);
-  //   pinoLogger.info({ userId: owner }, 'Database created successfully');
 };
 
 module.exports = getDatabase;

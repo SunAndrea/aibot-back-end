@@ -6,6 +6,8 @@ var cors = require('cors');
 const passport = require('passport');
 const pinoHTTP = require('pino-http');
 const cron = require('node-cron');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
 const authRouter = require('./src/routes/auth');
 const waitListRouter = require('./src/routes/waitList');
 const databaseRouter = require('./src/routes/database');
@@ -38,6 +40,7 @@ app.get('/api/logs', getLogs);
 app.use('/api/auth', authRouter);
 app.use('/api/waitlist', waitListRouter);
 app.use('/api/database', databaseRouter);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 cron.schedule('00 10 * * *', sendDailyEmail);
 

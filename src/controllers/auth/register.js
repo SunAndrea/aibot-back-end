@@ -37,7 +37,7 @@ const register = async (req, res) => {
 
   try {
     await sendEmail(mail);
-    res.status(200).json('Email was sent successfully');
+    res.status(200).json(userResponse);
     pinoLogger.info(
       `An email to complete registration was successfully sent to ${email}`
     );

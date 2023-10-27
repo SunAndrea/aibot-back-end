@@ -64,11 +64,10 @@ const getLogs = async (req, res) => {
 
   try {
     await sendSmtpEmail(email);
-
-    // fs.writeFile(pathToAttachment, '', (err) => {
-    //   if (err) throw err;
-    //   pinoLogger.info('app.log was cleaned');
-    // });
+    fs.writeFile(pathToAttachment, '', (err) => {
+      if (err) throw err;
+      pinoLogger.info('app.log was cleaned');
+    });
     return true;
   } catch (err) {
     pinoLogger.warn(err);
