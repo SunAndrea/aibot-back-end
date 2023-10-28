@@ -21,14 +21,13 @@ const login = async (req, res) => {
   }
   const passwordCompare = await bcrypt.compare(password, user.password);
   if (!passwordCompare) {
-    const { _id } = user;
-    pinoLogger.error({ userId: _id }, 'Wrong password');
+    pinoLogger.error('Wrong password');
     const error = createError(401, 'Wrong password');
     throw error;
   }
 
   if (!user.verify) {
-    pinoLogger.error({ userId: _id }, 'Email not verified');
+    pinoLogger.error('Email not verified');
     const error = createError(403, 'Email not verified');
     throw error;
   }

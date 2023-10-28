@@ -18,7 +18,7 @@ const addToWaitList = async (req, res) => {
     throw error;
   }
 
-  await WaitList.create({
+  const createdUser = await WaitList.create({
     name,
     email,
     phoneNumber,
@@ -37,14 +37,10 @@ const addToWaitList = async (req, res) => {
 
   try {
     await sendEmail(mail);
-    pinoLogger.info(
-      { userId: user._id },
-      'User was added to waitlist successfully'
-    );
-    res.status(200).json('Email was sent successfully');
+    pinoLogger.info('User was added to waitlist successfully');
+    res.status(200).json(createdUser._doc);
   } catch (error) {
-    // pinoLogger.error({ userId: user._id }, error.massege);
-    res.status(error.status).json({ message: error.message });
+    res.json({ message: error.message });
   }
 };
 
