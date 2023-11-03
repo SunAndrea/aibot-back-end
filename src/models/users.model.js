@@ -14,17 +14,11 @@ const userSchema = new Schema(
       type: String,
       required: false,
     },
-
     role: {
       type: String,
       enum: ['Admin', 'User'],
+      default: 'User'
     },
-    status: {
-      type: String,
-      enum: ['Free', 'Paid'],
-      default: 'Free',
-    },
-
     verify: {
       type: Boolean,
       default: false,

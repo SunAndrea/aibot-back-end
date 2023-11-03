@@ -14,6 +14,7 @@ const databaseRouter = require('./src/routes/database');
 const { errorFilter } = require('./src/middlewares');
 const pinoLogger = require('./logger');
 const { getLogs, sendDailyEmail } = require('./src/controllers/getlogs');
+const {adminMiddleware} = require('./src/middlewares');
 
 const SECRET_SESSION_KEY = process.env.SECRET_SESSION_KEY;
 
@@ -36,7 +37,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get('/api/logs', getLogs);
+app.get('/api/logs/:id', adminMiddleware, getLogs);
 app.use('/api/auth', authRouter);
 app.use('/api/waitlist', waitListRouter);
 app.use('/api/database', databaseRouter);
