@@ -10,18 +10,8 @@ const databaseSchema = new Schema(
       default: 'start',
     },
     questionAnswer: {
-      start: {
         question: [String],
         answer: [String],
-      },
-      pro: {
-        question: [String],
-        answer: [String],
-      },
-      max: {
-        question: [String],
-        answer: [String],
-      },
     },
     tags: [String],
     address: [String],

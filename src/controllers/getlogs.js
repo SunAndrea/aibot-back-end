@@ -68,6 +68,7 @@ const getLogs = async (req, res) => {
       if (err) throw err;
       pinoLogger.info('app.log was cleaned');
     });
+    res.json('Daily email sent!');
     return true;
   } catch (err) {
     pinoLogger.warn(err);
