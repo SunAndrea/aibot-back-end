@@ -5,7 +5,6 @@ const pinoLogger = require('../../../logger');
 const getDatabase = async (req, res) => {
   try {
     const owner = req.user.id;
-    console.log("Owner", owner);
     const database = await Database.findOne({ owner });
 
     res.json(database);

@@ -336,11 +336,22 @@
         }
       }
     },
-    "/waitlist": {
+    "/waitlist/{id}": {
       "get": {
         "tags": ["Waitlist"],
         "summary": "Get all users from the waitlist",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id user",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "65390b342e1d57215894d967"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -352,8 +363,8 @@
               }
             }
           },
-          "404": {
-            "description": "Path not found",
+          "403": {
+            "description": "User doesn't have access rights to the content",
             "content": {}
           }
         }
@@ -454,6 +465,40 @@
           },
           "401": {
             "description": "Unauthorized (Authorization header is invalid)"
+          }
+        }
+      }
+    },
+    "/logs/{id}": {
+      "get": {
+        "tags": ["Logs"],
+        "summary": "Get logs",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id user",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "65390b342e1d57215894d967"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetLogsResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "User doesn't have access rights to the content",
+            "content": {}
           }
         }
       }
@@ -1110,6 +1155,15 @@
           "updatedAt": {
             "type": "string",
             "format": "date-time"
+          }
+        }
+      },
+      "GetLogsResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Daily email sent!"
           }
         }
       }
