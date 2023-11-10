@@ -25,8 +25,6 @@ const register = async (req, res) => {
     verificationCode,
   });
 
-  console.log(newUser);
-
   const { password: userPassword, ...userResponse } = newUser._doc;
 
   const mail = {

@@ -1148,6 +1148,51 @@
               "type": "string"
             }
           },
+          "settings": {
+            "type": "object",
+            "properties": {
+              "functionality": {
+                "type": "object",
+                "properties": {
+                  "ai_disabled": {
+                    "type": "string",
+                    "example": true
+                  },
+                  "knowledge_enabled": { "type": "string", "example": true },
+                  "chat_history_enabled": { "type": "string", "example": true },
+                  "last_messages": { "type": "string", "example": 6 },
+                  "chat_personality": {
+                    "type": "string",
+                    "example": "You are personal assistant"
+                  },
+                  "price_lists_enabled": { "type": "string", "example": true },
+                  "voice": { "type": "string", "example": true },
+                  "lang": { "type": "string", "example": "ua" }
+                }
+              },
+              "answers": {
+                "type": "object",
+                "properties": {
+                  "max_response_length": {
+                    "type": "string",
+                    "example": 7
+                  },
+                  "max_product_show": {
+                    "type": "string",
+                    "example": 4
+                  },
+                  "temperature_of_answers": {
+                    "type": "string",
+                    "example": 1
+                  },
+                  "max_responses": {
+                    "type": "string",
+                    "example": 20
+                  }
+                }
+              }
+            }
+          },
           "createdAt": {
             "type": "string",
             "format": "date-time"
