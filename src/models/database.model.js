@@ -10,8 +10,8 @@ const databaseSchema = new Schema(
       default: 'start',
     },
     questionAnswer: {
-        question: [String],
-        answer: [String],
+      question: [String],
+      answer: [String],
     },
     tags: [String],
     address: [String],
@@ -62,6 +62,60 @@ const databaseSchema = new Schema(
         name: String,
       },
     ],
+    settings: {
+      functionality: {
+        ai_disabled: {
+          type: Boolean,
+          default: true,
+        },
+        knowledge_enabled: {
+          type: Boolean,
+          default: true,
+        },
+        chat_history_enabled: {
+          type: Boolean,
+          default: true,
+        },
+        last_messages: {
+          type: Number,
+          default: 6,
+        },
+        chat_personality: {
+          type: String,
+          default: 'You are personal assistant',
+        },
+        price_lists_enabled: {
+          type: Boolean,
+          default: true,
+        },
+        voice: {
+          type: Boolean,
+          default: false,
+        },
+        lang: {
+          type: String,
+          default: 'ua',
+        },
+      },
+      answers: {
+        max_response_length: {
+          type: Number,
+          default: 7,
+        },
+        max_product_show: {
+          type: Number,
+          default: 4,
+        },
+        temperature_of_answers: {
+          type: Number,
+          default: 1,
+        },
+        max_responses: {
+          type: Number,
+          default: 20,
+        },
+      },
+    },
   },
   { versionKey: false, timestamps: true }
 );
