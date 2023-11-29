@@ -15,7 +15,7 @@ const verifyEmail = async (req, res) => {
     verify: true,
     verificationCode: '',
   });
-  res.sendFile(path.join(__dirname, '../../public/registration-success.html'));
+  res.redirect('https://nastyasavchenko.github.io/EVA-I/registration');
 };
 
 module.exports = verifyEmail;
