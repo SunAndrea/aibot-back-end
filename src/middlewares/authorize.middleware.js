@@ -8,9 +8,6 @@ const authorizeMiddleware = async (req, res, next) => {
   const { authorization = '' } = req.headers;
   const [bearer, token] = authorization.split(' ');
 
-  console.log("Bearer", bearer);
-  console.log("Token", token);
-
   if (bearer !== 'Bearer' || !token) {
     pinoLogger.error('Authorization header is invalid');
     next(createError(401, 'Authorization header is invalid'));
