@@ -1,7 +1,6 @@
 const ObjectID = require('bson-objectid');
 const { User } = require('../../models/users.model');
 const pinoLogger = require('../../../logger');
-
 const { sendSmtpEmail } = require('../../helpers/sendSmtpEmail');
 
 const forgotPassword = async (req, res) => {
@@ -44,7 +43,7 @@ const forgotPassword = async (req, res) => {
                   padding: 0 0 0 16px;
                   width: 100%;
                   color: #07061f;
-                  font-family: Montserrat;
+                  font-family: Montserrat, sans-serif;
                   font-size: 20px;
                   font-style: normal;
                   font-weight: 700;
@@ -60,7 +59,7 @@ const forgotPassword = async (req, res) => {
                 style="
                   padding: 0 0 0 16px;
                   color: #07061f;
-                  font-family: Montserrat;
+                  font-family: Montserrat, sans-serif;
                   font-size: 14px;
                   font-style: normal;
                   font-weight: 400;
@@ -79,7 +78,7 @@ const forgotPassword = async (req, res) => {
                 style="
                   height: 23.2px;
                   padding: 0;
-                  font-family: Montserrat;
+                  font-family: Montserrat, sans-serif;
                   font-size: 14px;
                   font-style: normal;
                   font-weight: 400;
@@ -96,7 +95,7 @@ const forgotPassword = async (req, res) => {
                 <a
                   href="https://nastyasavchenko.github.io/EVA-I/reset-password"
                   style="
-                    font-family: Montserrat;
+                    font-family: Montserrat, sans-serif;
                     font-size: 14px;
                     font-style: normal;
                     font-weight: 600;
