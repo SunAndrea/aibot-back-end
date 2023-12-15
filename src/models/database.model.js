@@ -4,6 +4,7 @@ const Joi = require('joi');
 const databaseSchema = new Schema(
   {
     owner: String,
+    token: String,
     tariffPlan: {
       type: String,
       enum: ['start', 'pro', 'max'],
